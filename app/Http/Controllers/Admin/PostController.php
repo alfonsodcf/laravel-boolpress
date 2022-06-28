@@ -17,7 +17,7 @@ class PostController extends Controller
         "published" => "sometimes|accepted",
         "categoty_id" => "nullable|exists:categories,id",
         // "image" => "nullable|image|mimes:jpeg.bpm,png|max:2048",
-        // "tags" => "nullable|exists:tags,id"
+        "tags" => "nullable|exists:tags,id"
         
     ];
     /**
@@ -27,7 +27,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::paginate(5);
         return view('admin.posts.index',compact('posts'));
     }
 
