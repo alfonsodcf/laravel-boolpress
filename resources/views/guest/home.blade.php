@@ -61,7 +61,9 @@
             </nav>
         </header>
         <main id="root"></main>
+        
         <footer></footer>
+
         <script sec="{{asset('js/front.js')}}"></script>
     </body>
 </html>

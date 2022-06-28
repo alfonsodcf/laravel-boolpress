@@ -1942,6 +1942,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App",
@@ -37566,7 +37568,7 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_c("app-main")], 1)
+  return _c("main", { staticClass: "container mt-3" }, [_c("app-main")], 1)
 }
 var staticRenderFns = []
 render._withStripped = true

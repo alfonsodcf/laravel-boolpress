@@ -1,7 +1,9 @@
 <template>
-    <div>
+    <main class="container mt-3">
         <app-main />
-    </div>
+    </main>
+        
+    
 </template>
 
 <script>
