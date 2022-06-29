@@ -53,13 +53,16 @@ class PostController extends Controller
     {
         $request->validate($this->validationRule);
         $data = $request->all();
+
         $newPost = new Post();
         $newPost->title = $data['title'];
         $newPost->content = $data['content'];
         $newPost->published = isset($data['published']);// true o flase
         $newPost->category_id = $data['category_id'];
-         $newPost->slug = $this->getSlug($newPost->title);
+        $newPost->slug = $this->getSlug($newPost->title);
+        
         $newPost->save();
+        
         if(isset($data['tags'])){
             $newPost->tags()->sync($data['tags']);
         }
@@ -88,7 +91,8 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
         $categories = Category::all();
-        return view('admin.posts.edit',compact('post','categories'));
+        $tags = Tag::all();
+        return view('admin.posts.edit',compact('post','categories','tags'));
     }
 
     /**
@@ -100,6 +104,7 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        $request->validate($this->validationRule);
         $data = $request->all();
 
         if($post->title != $data['title']){
@@ -113,6 +118,10 @@ class PostController extends Controller
         $post->content = $data['content'];
         $post->published = isset($data["published"]);
         $post->update();
+
+        if(isset($data['tags'])){
+            $post->tags()->sync($data['tags']);
+        }
         return redirect()->route('admin.posts.show', $post->id);
     }
 
@@ -124,11 +133,17 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $post->tags()->sync([]);
         $post->delete();
         return redirect()->route('admin.posts.index')->with("message","Post with id:{$post->id} successfully deleted !");
     }
 
-    //
+       /**
+     * Generate an unique slug
+     *
+     * @param  string  $title
+     * @return string
+     */
     private function getSlug($title)
     {
         $slug = Str::of($title)->slug("-");

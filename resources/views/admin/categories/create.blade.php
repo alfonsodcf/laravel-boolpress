@@ -1,5 +1,4 @@
 @extends('layouts.admin')
-
 @section('content')
 <form action="{{route('admin.posts.store')}}" method="POST" class="container">
     @csrf

@@ -12,7 +12,7 @@
         </button>
       </div>
       <div class="modal-body">
-        Sei sicuro di voler eliminare il post con id: @{{itemid}} ?
+        Sei sicuro di voler eliminare la categoria con id: @{{itemid}} ?
       </div>
      
       <div class="modal-footer">
@@ -23,7 +23,7 @@
   </div>
 
 </div>
-<a href="{{route('admin.posts.create',)}}" class="btn btn-primary">Crea un nuovo post</a>
+<a href="{{route('admin.categories.create',)}}" class="btn btn-primary">Crea un nuovo post</a>
 @if (session()->has('message'))
   <div class="alert alert-success">
     {{session()->get('message')}}
@@ -43,18 +43,18 @@
       </tr>
     </thead>
     <tbody>
-    @foreach ($posts as $post)
+    @foreach ($categories as $category)
     <tr>
       
-      <td><a href="{{route('admin.posts.show', $post->id)}}">{{$post->id}}</a></td>
-      <td><a href="{{route('admin.posts.show', $post->id)}}">{{$post->title}}</a></td>
-      <td>{{$post->created_at}}</td>
-      <td><a href="{{route('admin.posts.edit', $post->id)}}" class="btn btn-primary">Edit</a></td>
+      <td><a href="{{route('admin.categories.show', $category->id)}}">{{$category->id}}</a></td>
+      <td><a href="{{route('admin.categories.show', $category->id)}}">{{$category->title}}</a></td>
+      <td>{{$category->created_at}}</td>
+      <td><a href="{{route('admin.categories.edit', $category->id)}}" class="btn btn-primary">Edit</a></td>
       <td>
-        <form action="{{route('admin.posts.destroy',$post->id)}}" method="post">
+        <form action="{{route('admin.categories.destroy',$category->id)}}" method="post">
           @csrf
           @method('DELETE')
-          <button type="submit" @@click="openModal($event, {{$post->id}})" class="btn btn-warning delete">Delete</button>
+          <button type="submit" @@click="openModal($event, {{$category->id}})" class="btn btn-warning delete">Delete</button>
         </form>
       </td>
     </tr> 
@@ -63,5 +63,5 @@
      
     </tbody>
   </table>
-  {{ $posts->links()}}
+  {{ $categories->links()}}
 @endsection

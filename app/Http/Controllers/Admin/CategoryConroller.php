@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Category;
 class CategoryConroller extends Controller
 {
     /**
@@ -14,7 +14,8 @@ class CategoryConroller extends Controller
      */
     public function index()
     {
-        //
+       $categories = Category::paginate(20);
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
