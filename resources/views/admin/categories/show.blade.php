@@ -1,5 +1,5 @@
 @extends('layouts.admin');
-
+@include('partials/popupdelete')
 @section('content')
     <h1>{{$post->title}}</h1>
     @if ($post->category)

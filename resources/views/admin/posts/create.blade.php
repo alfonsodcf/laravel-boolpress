@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-<form action="{{route('admin.posts.store')}}" method="POST" class="container">
+<form action="{{route('admin.posts.store')}}" method="POST" enctype="multipart/form-data" class="container">
     @csrf
     <div class="mb-3">
       <label for="title" class="form-label">Title</label>
@@ -21,6 +21,17 @@
         @endforeach
       </select>
     </div>
+
+    
+      <div class="form-group">
+        <img id="uploadPreview" width="100" src="https://via.placeholder.com/300x200">
+        <label for="image">Aggiungi immagine</label>
+        <input type="film" id="image" name="image" onchange="boolpress.previewImge();">
+        @error('image')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+      </div>
+  
 
     <div class="mb-3">
       <div class="form-group">
