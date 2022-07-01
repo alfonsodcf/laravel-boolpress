@@ -9,6 +9,7 @@ use Illuminate\Support\Facedes\Storege;
 use App\Post;
 use App\Category;
 use App\Tag;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -80,9 +81,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        $post = Post::findOrFail($id);
+        // $post = Post::findOrFail($id);
         return view('admin.posts.show', compact('post'));
     }
 
@@ -122,10 +123,19 @@ class PostController extends Controller
         $post->category_id = $data['category_id'];
         $post->content = $data['content'];
         $post->published = isset($data["published"]);
+        if( isset($data['image']) ) {
+            // cancello l'immagine
+            Storage::delete($post->image);
+            // salvo la nuova immagine
+            $path_image = Storage::put("uploads", $data['image']);
+            $post->image = $path_image;
+        }
         $post->update();
 
         if(isset($data['tags'])){
             $post->tags()->sync($data['tags']);
+        } else {
+            $post->tags()->sync([]);
         }
         return redirect()->route('admin.posts.show', $post->id);
     }
