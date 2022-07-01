@@ -5,10 +5,11 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Lista categorie</div>
-
+                    <div class="card-header">
+                        Lista Tag
+                    </div>
                     <div class="card-body">
-                        <a href="{{ route('admin.categories.create') }}" class="btn btn-primary mb-3">Crea nuova categoria</a>
+                        <a href="{{ route('admin.tags.create') }}" class="btn btn-primary mb-3">Crea nuovo tag</a>
                         @if (session()->has('message'))
                             <div class="alert alert-success mb-3 mt-3">
                                 {{ session()->get('message') }}
@@ -25,24 +26,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($categories as $category)
+                                @foreach ($tags as $tag)
                                     <tr>
-                                        <td> <a
-                                                href="{{ route('admin.categories.show', $category->id) }}">{{ $category->id }}</a>
-                                        </td>
-                                        <td> <a
-                                                href="{{ route('admin.categories.show', $category->id) }}">{{ $category->name }}</a>
-                                        </td>
-                                        <td>{{ $category->created_at }}</td>
-                                        <td><a href="{{ route('admin.categories.edit', $category->id) }}"
+                                        <td> <a href="{{ route('admin.tags.show', $tag->id) }}">{{ $tag->id }}</a></td>
+                                        <td> <a href="{{ route('admin.tags.show', $tag->id) }}">{{ $tag->name }}</a></td>
+                                        <td>{{ $tag->created_at }}</td>
+                                        <td><a href="{{ route('admin.tags.edit', $tag->id) }}"
                                                 class="btn btn-primary">Edit</a></td>
                                         <td>
-                                            <form action="{{ route('admin.categories.destroy', $category->id) }}"
-                                                method="post">
+                                            <form action="{{ route('admin.tags.destroy', $tag->id) }}" method="post">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit"
-                                                    onclick="boolpress.openModal(event, {{ $category->id }})"
+                                                    onclick="boolpress.openModal(event, {{ $tag->id }})"
                                                     class="btn btn-warning delete">Delete</button>
                                             </form>
                                         </td>
@@ -52,7 +48,7 @@
 
                             </tbody>
                         </table>
-                        {{ $categories->links() }}
+                        {{ $tags->links() }}
                     </div>
                 </div>
             </div>

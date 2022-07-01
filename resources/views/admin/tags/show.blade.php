@@ -5,27 +5,27 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">{{ $category->name }}</div>
-
+                    <div class="card-header">
+                        {{ $tag->name }}
+                    </div>
                     <div class="card-body">
 
 
                         <h2>Related posts</h2>
-                        @if ($category->posts)
+                        @if ($tag->posts)
                             <ul>
-                                @foreach ($category->posts as $post)
+                                @foreach ($tag->posts as $post)
                                     <li>{{ $post->title }}</li>
                                 @endforeach
                             </ul>
                         @endif
                         <div class="d-flex align-items-start">
-                            <a href="{{ route('admin.categories.edit', $category->id) }}"
-                                class="btn btn-primary mr-2">Edit</a>
-                            <form action="{{ route('admin.categories.destroy', $category->id) }}" method="post">
+                            <a href="{{ route('admin.tags.edit', $tag->id) }}" class="btn btn-primary mr-2">Edit</a>
+                            <form action="{{ route('admin.tags.destroy', $tag->id) }}" method="post" >
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit"
-                                    onclick="boolpress.openModal(event, {{ $category->id }})"
+                                    onclick="boolpress.openModal(event, {{ $tag->id }})"
                                     class="btn btn-warning delete">Delete</button>
                             </form>
                         </div>
